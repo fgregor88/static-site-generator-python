@@ -12,21 +12,23 @@ class HtmlNode:
         raise NotImplementedError()
 
     def props_to_html(self):
+        assert self.props is not None
         output = ""
         for prop in self.props:
             output += f"{prop}={self.props[prop]} "
         return output
 
     def dict_to_string(self):
+        assert self.props is not None
         print(self.props)
         formated_props_string = "{\n"
         for prop in self.props:
-            value = self.props[prop]
-            formated_props_string = formated_props_string + f"\t\"{prop}\": \"{value}\",\n"
+            value = self.props[prop]  # pyright: ignore[reportOptionalSubscript]
+            formated_props_string = formated_props_string + f'\t"{prop}": "{value}",\n'
         formated_props_string = formated_props_string + "}"
         return formated_props_string
 
-    #tag value children props
+    # tag value children props
 
     def __eq__(self, node):
         if (

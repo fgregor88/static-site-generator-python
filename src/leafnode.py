@@ -15,6 +15,7 @@ class LeafNode:
         return output
 
     def props_to_html(self):
+        assert self.props is not None
         output = ""
         for prop in self.props:
             output += f"{prop}={self.props[prop]} "
