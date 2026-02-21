@@ -1,5 +1,6 @@
 from textnode import TextNode, TextType
 from htmlnode import HtmlNode
+from leafnode import LeafNode
 
 def main():
     test = TextNode("test", TextType.PLAIN, "more text")
@@ -9,6 +10,9 @@ def main():
     print(htmlnode)
     html = htmlnode.props_to_html()
     print(html)
+
+    leafnode = LeafNode("p", "test").to_html()
+    print(leafnode)
 
 
 
