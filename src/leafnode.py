@@ -11,7 +11,7 @@ class LeafNode:
         output = ""
         output += f"<{self.tag}>"
         output += f"{self.value}"
-        output += f"<\{self.tag}>"
+        output += f"</{self.tag}>"
         return output
 
     def props_to_html(self):
