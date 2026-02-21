@@ -8,7 +8,10 @@ class LeafNode:
         return f"LeafNode({self.tag}, {self.value}, {self.props})"
 
     def to_html(self):
-        raise NotImplementedError()
+        output = ""
+        output += f"<{self.tag}>"
+        output += f"{self.value}"
+        output += f"<\{self.tag}>"
 
     def props_to_html(self):
         output = ""
