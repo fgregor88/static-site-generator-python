@@ -5,7 +5,7 @@ class LeafNode:
         self.props = props
 
     def __repr__(self):
-        return f"HtmlNode({self.tag}, {self.value}, {self.props})"
+        return f"LeafNode({self.tag}, {self.value}, {self.props})"
 
     def to_html(self):
         raise NotImplementedError()
