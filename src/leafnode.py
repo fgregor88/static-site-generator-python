@@ -8,6 +8,8 @@ class LeafNode:
         return f"LeafNode({self.tag}, {self.value}, {self.props})"
 
     def to_html(self):
+        if self.tag is None:
+            return self.value
         output = ""
         output += f"<{self.tag}>"
         output += f"{self.value}"
@@ -15,7 +17,8 @@ class LeafNode:
         return output
 
     def props_to_html(self):
-        assert self.props is not None
+        if self.props is None:
+            return ""
         output = ""
         for prop in self.props:
             output += f"{prop}={self.props[prop]} "

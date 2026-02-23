@@ -6,8 +6,11 @@ from parentnode import ParentNode
 
 class TestLeafNode(unittest.TestCase):
     def test_to_html_with_children(self):
+        print("Jurij Gregor")
         child_node = LeafNode("span", "child")
+        print(child_node)
         parent_node = ParentNode("div", [child_node])
+        print(parent_node)
         self.assertEqual(parent_node.to_html(), "<div><span>child</span></div>")
 
     def test_to_html_with_grandchildren(self):
