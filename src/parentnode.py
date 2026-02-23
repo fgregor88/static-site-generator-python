@@ -1,4 +1,5 @@
 from htmlnode import HtmlNode
+from leafnode import LeafNode
 
 
 class ParentNode(HtmlNode):
@@ -17,3 +18,10 @@ class ParentNode(HtmlNode):
 
     def __repr__(self):
         return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
+
+    def props_to_html(self):
+        assert self.props is not None
+        output = ""
+        for prop in self.props:
+            output += f"{prop}={self.props[prop]} "
+        return output
