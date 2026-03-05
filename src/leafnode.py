@@ -1,3 +1,6 @@
+from typing import Self
+
+
 class LeafNode:
     def __init__(self, tag=None, value=None, props=None):
         self.tag = tag
@@ -24,7 +27,9 @@ class LeafNode:
             output += f"{prop}={self.props[prop]} "
         return output
 
-    def __eq__(self, node):
+    def __eq__(self, node: object) -> bool:
+        if not isinstance(node, LeafNode):
+            return NotImplemented
         if (
             self.tag == node.tag
             and self.value == node.value
