@@ -182,6 +182,19 @@ the **same** even with inline stuff
             extract_title(md)
         self.assertEqual(ex.exception.args[0], "markdown containst to many #, not h1")
 
+    def test_extract_title_multiline(self):
+        md = """
+# Title
+
+not title
+
+
+something else
+"""
+
+        title = extract_title(md)
+        self.assertEqual(title, "Title")
+
 
 if __name__ == "__main__":
     unittest.main()

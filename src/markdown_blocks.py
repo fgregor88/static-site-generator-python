@@ -48,7 +48,7 @@ def markdown_to_html_node(markdown):
     return ParentNode("div", children, None)
 
 
-def block_to_html_node(block):
+def block_to_html_node(block) -> ParentNode:
     block_type = block_to_block_type(block)
     if block_type == BlockType.PARAGRAPH:
         return paragraph_to_html_node(block)
@@ -139,6 +139,11 @@ def quote_to_html_node(block):
 
 
 def extract_title(markdown: str) -> str:
+    lines = markdown.splitlines()
+    for line in lines:
+        if line.startswith("#"):
+            markdown = line
+            break
     markdown = markdown.strip()
     if not markdown.startswith("#"):
         raise Exception("markdown missing #, not heading")
@@ -146,3 +151,19 @@ def extract_title(markdown: str) -> str:
         raise Exception("markdown containst to many #, not h1")
     title = markdown.split("#")[1].strip()
     return title
+
+
+def generate_page(from_path, template_path, dest_path):
+    print(f"Generating page from {from_path} to {dest_path} using {template_path}")
+    with open(from_path, "r") as file:
+        markdown = file.read()
+    with open(template_path, "r") as file:
+        template = file.read()
+    htmlnode = markdown_to_html_node(markdown)
+    html = htmlnode.to_html()
+    title = extract_title(markdown)
+    template = template.replace(r"{{ Title }}", title)
+    template = template.replace(r"{{ Content }}", html)
+    with open(dest_path, "w") as file:
+        file.write(template)
+    print("Site generation completed.")
