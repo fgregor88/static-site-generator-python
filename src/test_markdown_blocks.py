@@ -3,6 +3,7 @@ import unittest
 from markdown_blocks import (
     BlockType,
     block_to_block_type,
+    extract_title,
     markdown_to_blocks,
     markdown_to_html_node,
 )
@@ -163,6 +164,23 @@ the **same** even with inline stuff
             html,
             "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
         )
+
+    def test_extract_title(self):
+        md = "# Good Title"
+        title = extract_title(md)
+        self.assertEqual(title, "Good Title")
+
+    def test_extract_title_not_heading(self):
+        md = "not a heading"
+        with self.assertRaises(Exception) as ex:
+            extract_title(md)
+        self.assertEqual(ex.exception.args[0], "markdown missing #, not heading")
+
+    def test_extract_title_not_h1(self):
+        md = "## not h1"
+        with self.assertRaises(Exception) as ex:
+            extract_title(md)
+        self.assertEqual(ex.exception.args[0], "markdown containst to many #, not h1")
 
 
 if __name__ == "__main__":
