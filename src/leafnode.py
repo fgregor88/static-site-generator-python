@@ -11,20 +11,20 @@ class LeafNode:
         return f"LeafNode({self.tag}, {self.value}, {self.props})"
 
     def to_html(self):
+        if self.value is None:
+            raise ValueError("invalid HTML: no value")
         if self.tag is None:
             return self.value
-        output = ""
-        output += f"<{self.tag}>"
-        output += f"{self.value}"
-        output += f"</{self.tag}>"
-        return output
+        if self.tag == "img":
+            return f"<{self.tag}{self.props_to_html()}>"
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
     def props_to_html(self) -> str:
         if self.props is None:
             return ""
         output = ""
         for prop in self.props:
-            output += f"{prop}={self.props[prop]} "
+            output += f' {prop}="{self.props[prop]}"'
         return output
 
     def __eq__(self, node: object) -> bool:
