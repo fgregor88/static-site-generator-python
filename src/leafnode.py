@@ -1,6 +1,3 @@
-from typing import Self
-
-
 class LeafNode:
     def __init__(self, tag=None, value=None, props=None):
         self.tag = tag
