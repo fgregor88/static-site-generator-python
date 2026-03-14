@@ -1,3 +1,4 @@
+import sys
 from os import listdir, mkdir
 from os.path import exists, isdir, isfile, join
 from shutil import copy, rmtree
@@ -6,14 +7,23 @@ from markdown_blocks import generate_page
 
 
 def main():
+
+    base_path = "/"
+    if len(sys.argv) > 1:
+        base_path = sys.argv[1]
+
     path = "static/"
     target = "public/"
+
+    if base_path != "/":
+        target = "docs/"
+
     clean_dir(target)
     inspect_dir(path, target)
 
     from_path = "content/index.md"
     template_path = "template.html"
-    dest_path = "public/index.html"
+    base_path = "public/index.html"
 
     if not exists(from_path):
         print(f"from_path doesn't exist: {from_path}")
@@ -22,7 +32,7 @@ def main():
         print(f"template_path doesn't exist: {template_path}")
 
     # generate_page(from_path, template_path, dest_path)
-    generate_pages_recursive("content", template_path, "public")
+    generate_pages_recursive("content", template_path, target, base_path)
 
 
 def clean_dir(target_path: str):
@@ -50,7 +60,7 @@ def inspect_dir(src_path: str, target_path: str):
 
 
 def generate_pages_recursive(
-    dir_path_content: str, template_path: str, dest_dir_path: str
+    dir_path_content: str, template_path: str, dest_dir_path: str, base_path: str
 ):
     paths = listdir(dir_path_content)
     for path in paths:
@@ -58,12 +68,12 @@ def generate_pages_recursive(
         if isfile(full_path):
             if path.endswith(".md"):
                 dest_file_path = join(dest_dir_path, path[:-3] + ".html")
-                generate_page(full_path, template_path, dest_file_path)
+                generate_page(full_path, template_path, dest_file_path, base_path)
         elif isdir(full_path):
             new_dest_dir = join(dest_dir_path, path)
             if not exists(new_dest_dir):
                 mkdir(new_dest_dir)
-            generate_pages_recursive(full_path, template_path, new_dest_dir)
+            generate_pages_recursive(full_path, template_path, new_dest_dir, base_path)
 
 
 if __name__ == "__main__":
