@@ -164,8 +164,8 @@ def generate_page(from_path, template_path, dest_path, base_path):
     title = extract_title(markdown)
     template = template.replace(r"{{ Title }}", title)
     template = template.replace(r"{{ Content }}", html)
-    template = template.replace(r'href="/', r'href="{basepath}')
-    template = template.replace(r'src="/', r'src="{basepath}')
+    template = template.replace('href="/', f'href="{base_path}')
+    template = template.replace('src="/', f'src="{base_path}')
     with open(dest_path, "w") as file:
         file.write(template)
     print("Site generation completed.")

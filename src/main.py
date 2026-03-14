@@ -12,6 +12,8 @@ def main():
     if len(sys.argv) > 1:
         base_path = sys.argv[1]
 
+    print(f"base_path: {base_path}")
+
     path = "static/"
     target = "public/"
 
@@ -23,7 +25,6 @@ def main():
 
     from_path = "content/index.md"
     template_path = "template.html"
-    base_path = "public/index.html"
 
     if not exists(from_path):
         print(f"from_path doesn't exist: {from_path}")
