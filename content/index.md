@@ -1,4 +1,4 @@
-# Tolkien Fan Club
+# Maša Fan Club
 
 ![JRR Tolkien sitting](/images/tolkien.png)
 
